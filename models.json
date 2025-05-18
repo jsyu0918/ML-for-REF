@@ -1,0 +1,319 @@
+{
+  "models": [
+    {
+      "id": "xgboost",
+      "name": "XGBoost",
+      "type": "앙상블 학습",
+      "shortDescription": "Extreme Gradient Boosting의 약자로, 그래디언트 부스팅 프레임워크의 최적화된 구현체이다. 높은 예측 성능과 계산 효율성을 특징으로 한다.",
+      "features": ["고성능", "해석 가능", "이상치 강건"],
+      "fullDescription": {
+        "overview": "XGBoost(eXtreme Gradient Boosting)는 그래디언트 부스팅 의사결정 트리(GBDT) 알고리즘의 최적화된 분산 구현체로, 2016년 Tianqi Chen과 Carlos Guestrin에 의해 개발되었다. 이 알고리즘은 여러 개의 약한 예측 모델(주로 의사결정 트리)을 순차적으로 학습시켜 이전 모델의 오차를 보완하는 방식으로 작동한다.",
+        "mathFormulation": "XGBoost의 목적 함수는 다음과 같이 정의된다:\n\\[ \\mathcal{L} = \\sum_{i=1}^{n} l(y_i, \\hat{y}_i) + \\sum_{k=1}^{K} \\Omega(f_k) \\]\n여기서 $l$은 손실 함수, $\\Omega$는 정규화 항, $f_k$는 $k$번째 트리를 나타낸다. 예측값은 모든 트리의 출력 합으로 계산된다:\n\\[ \\hat{y}_i = \\sum_{k=1}^{K} f_k(x_i) \\]",
+        "advantages": [
+          "높은 예측 정확도: 다양한 머신러닝 경진대회에서 우수한 성능을 보임",
+          "효율적인 계산: 병렬 처리와 캐시 최적화를 통한 빠른 학습 속도",
+          "과적합 방지: 정규화 기법을 내장하여 일반화 성능 향상",
+          "결측치 처리: 자체적인 결측값 처리 알고리즘 포함",
+          "변수 중요도: 특성 중요도를 자동으로 계산하여 모델 해석 용이"
+        ],
+        "disadvantages": [
+          "블랙박스 성향: 개별 트리는 해석 가능하나 전체 모델은 복잡함",
+          "하이퍼파라미터 민감성: 최적 성능을 위한 파라미터 튜닝 필요",
+          "메모리 사용량: 대규모 데이터셋에서 상당한 메모리 요구",
+          "시계열 데이터 한계: 시간적 의존성을 직접적으로 모델링하지 않음"
+        ],
+        "realEstateApplications": [
+          "부동산 가격 예측: 물리적 특성, 입지 조건, 경제 지표 등을 활용한 가격 모델링",
+          "투자 수익률 예측: 다양한 요인을 고려한 ROI 예측",
+          "시장 세분화: 유사한 특성을 가진 부동산 그룹 식별",
+          "가치 평가 요인 분석: 가격 결정에 영향을 미치는 주요 변수 식별"
+        ]
+      },
+      "codeExample": "import pandas as pd\nimport numpy as np\nfrom xgboost import XGBRegressor\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error\n\n# 데이터 로드\ndata = pd.read_csv('apartment_prices.csv')\n\n# 특성과 타겟 분리\nX = data.drop('price', axis=1)\ny = data['price']\n\n# 학습/테스트 데이터 분할\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# XGBoost 모델 생성 및 학습\nmodel = XGBRegressor(\n    learning_rate=0.1,\n    max_depth=6,\n    n_estimators=100,\n    objective='reg:squarederror'\n)\nmodel.fit(X_train, y_train)\n\n# 예측 및 평가\ny_pred = model.predict(X_test)\nrmse = np.sqrt(mean_squared_error(y_test, y_pred))\nprint(f'RMSE: {rmse:.2f}')\n\n# 변수 중요도 확인\nimportance = model.feature_importances_\nfor i, v in enumerate(importance):\n    print(f'Feature {X.columns[i]}: {v:.4f}')",
+      "parameters": [
+        {
+          "name": "learning_rate",
+          "description": "학습률 (단계 크기 축소)",
+          "default": 0.1,
+          "range": [0.01, 0.3]
+        },
+        {
+          "name": "max_depth",
+          "description": "트리의 최대 깊이",
+          "default": 6,
+          "range": [3, 10]
+        },
+        {
+          "name": "n_estimators",
+          "description": "생성할 트리의 개수",
+          "default": 100,
+          "range": [50, 500]
+        },
+        {
+          "name": "subsample",
+          "description": "샘플링 비율",
+          "default": 1.0,
+          "range": [0.5, 1.0]
+        },
+        {
+          "name": "colsample_bytree",
+          "description": "트리별 열 샘플링 비율",
+          "default": 1.0,
+          "range": [0.5, 1.0]
+        }
+      ],
+      "references": [
+        {
+          "title": "XGBoost: A Scalable Tree Boosting System",
+          "authors": "Tianqi Chen, Carlos Guestrin",
+          "year": 2016,
+          "url": "https://arxiv.org/abs/1603.02754"
+        },
+        {
+          "title": "부동산 가격 예측을 위한 XGBoost 모델 연구",
+          "authors": "김OO, 이OO",
+          "year": 2022,
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "id": "lstm",
+      "name": "LSTM",
+      "type": "딥러닝",
+      "shortDescription": "Long Short-Term Memory의 약자로, 시계열 데이터에서 장기 의존성을 학습할 수 있는 특수한 순환 신경망(RNN) 구조이다.",
+      "features": ["시계열 분석", "장기 패턴", "비선형 관계"],
+      "fullDescription": {
+        "overview": "LSTM(Long Short-Term Memory)은 1997년 Hochreiter와 Schmidhuber에 의해 제안된 특수한 형태의 순환 신경망(RNN)으로, 기존 RNN의 장기 의존성 학습 문제(기울기 소실/폭발 문제)를 해결하기 위해 설계되었다. LSTM은 셀 상태(cell state)와 다양한 게이트 메커니즘을 통해 시계열 데이터에서 장기적인 패턴을 효과적으로 학습할 수 있다.",
+        "mathFormulation": "LSTM의 핵심 수식은 다음과 같다:\n\\[ f_t = \\sigma(W_f \\cdot [h_{t-1}, x_t] + b_f) \\]\n\\[ i_t = \\sigma(W_i \\cdot [h_{t-1}, x_t] + b_i) \\]\n\\[ \\tilde{C}_t = \\tanh(W_C \\cdot [h_{t-1}, x_t] + b_C) \\]\n\\[ C_t = f_t * C_{t-1} + i_t * \\tilde{C}_t \\]\n\\[ o_t = \\sigma(W_o \\cdot [h_{t-1}, x_t] + b_o) \\]\n\\[ h_t = o_t * \\tanh(C_t) \\]\n여기서 $f_t$는 망각 게이트, $i_t$는 입력 게이트, $o_t$는 출력 게이트, $C_t$는 셀 상태, $h_t$는 은닉 상태를 나타낸다.",
+        "advantages": [
+          "장기 의존성 학습: 시간적으로 멀리 떨어진 정보도 효과적으로 활용",
+          "시퀀스 모델링: 가변 길이 시퀀스 데이터 처리에 적합",
+          "비선형 패턴 포착: 복잡한 시간적 패턴과 관계 학습 가능",
+          "다양한 응용: 시계열 예측, 자연어 처리, 음성 인식 등 광범위한 적용"
+        ],
+        "disadvantages": [
+          "계산 복잡성: 학습에 상당한 계산 자원 필요",
+          "데이터 요구량: 효과적인 학습을 위해 대량의 데이터 필요",
+          "해석 난이도: 내부 작동 방식 해석이 어려움",
+          "하이퍼파라미터 튜닝: 최적 구성 찾기 위한 실험 필요"
+        ],
+        "realEstateApplications": [
+          "부동산 가격 시계열 예측: 과거 가격 추세를 기반으로 미래 가격 예측",
+          "임대료 변동 예측: 시간에 따른 임대료 변화 패턴 학습",
+          "시장 사이클 분석: 부동산 시장의 주기적 패턴 식별",
+          "거시경제 지표와 부동산 시장 관계 모델링: 금리, 실업률 등과 부동산 가격 간의 시간적 관계 분석"
+        ]
+      },
+      "codeExample": "import numpy as np\nimport pandas as pd\nfrom tensorflow.keras.models import Sequential\nfrom tensorflow.keras.layers import LSTM, Dense\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\n\n# 데이터 로드 및 전처리\ndata = pd.read_csv('real_estate_time_series.csv')\nprice_data = data['price'].values.reshape(-1, 1)\n\n# 데이터 정규화\nscaler = MinMaxScaler(feature_range=(0, 1))\nprice_scaled = scaler.fit_transform(price_data)\n\n# 시계열 데이터셋 생성 함수\ndef create_dataset(dataset, time_step=1):\n    X, y = [], []\n    for i in range(len(dataset) - time_step - 1):\n        X.append(dataset[i:(i + time_step), 0])\n        y.append(dataset[i + time_step, 0])\n    return np.array(X), np.array(y)\n\n# 시계열 데이터셋 생성\ntime_step = 12  # 12개월 데이터로 다음 달 예측\nX, y = create_dataset(price_scaled, time_step)\n\n# 데이터셋 형태 변환 (LSTM 입력용)\nX = X.reshape(X.shape[0], X.shape[1], 1)\n\n# 학습/테스트 분할\ntrain_size = int(len(X) * 0.8)\nX_train, X_test = X[:train_size], X[train_size:]\ny_train, y_test = y[:train_size], y[train_size:]\n\n# LSTM 모델 구축\nmodel = Sequential()\nmodel.add(LSTM(50, return_sequences=True, input_shape=(time_step, 1)))\nmodel.add(LSTM(50))\nmodel.add(Dense(1))\nmodel.compile(optimizer='adam', loss='mean_squared_error')\n\n# 모델 학습\nmodel.fit(X_train, y_train, epochs=100, batch_size=32, validation_data=(X_test, y_test), verbose=1)\n\n# 예측 및 평가\ny_pred = model.predict(X_test)\ny_pred = scaler.inverse_transform(y_pred.reshape(-1, 1))\ny_test_actual = scaler.inverse_transform(y_test.reshape(-1, 1))\n\nrmse = np.sqrt(mean_squared_error(y_test_actual, y_pred))\nprint(f'RMSE: {rmse:.2f}')",
+      "parameters": [
+        {
+          "name": "units",
+          "description": "LSTM 유닛(뉴런) 수",
+          "default": 50,
+          "range": [10, 200]
+        },
+        {
+          "name": "time_step",
+          "description": "입력 시퀀스 길이",
+          "default": 12,
+          "range": [3, 24]
+        },
+        {
+          "name": "layers",
+          "description": "LSTM 층 수",
+          "default": 2,
+          "range": [1, 4]
+        },
+        {
+          "name": "dropout",
+          "description": "드롭아웃 비율",
+          "default": 0.2,
+          "range": [0, 0.5]
+        },
+        {
+          "name": "learning_rate",
+          "description": "학습률",
+          "default": 0.001,
+          "range": [0.0001, 0.01]
+        }
+      ],
+      "references": [
+        {
+          "title": "Long Short-Term Memory",
+          "authors": "Sepp Hochreiter, Jürgen Schmidhuber",
+          "year": 1997,
+          "url": "https://www.bioinf.jku.at/publications/older/2604.pdf"
+        },
+        {
+          "title": "LSTM 기반 부동산 가격 예측 모델 연구",
+          "authors": "박OO, 최OO",
+          "year": 2023,
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "id": "random-forest",
+      "name": "Random Forest",
+      "type": "앙상블 학습",
+      "shortDescription": "다수의 의사결정 트리를 구축하고 그 예측을 결합하여 과적합을 줄이고 정확도를 높이는 앙상블 학습 방법이다.",
+      "features": ["안정성", "변수 중요도", "병렬 처리"],
+      "fullDescription": {
+        "overview": "Random Forest는 Leo Breiman에 의해 2001년에 제안된 앙상블 학습 방법으로, 다수의 의사결정 트리를 독립적으로 학습시키고 그 결과를 결합하는 방식으로 작동한다. 각 트리는 원본 데이터셋에서 부트스트랩 샘플링(중복을 허용한 무작위 샘플링)을 통해 선택된 데이터로 학습되며, 각 노드에서의 분할 시 전체 특성 중 무작위 하위 집합만을 고려한다.",
+        "mathFormulation": "Random Forest의 예측은 개별 트리 예측의 평균(회귀) 또는 다수결(분류)로 계산된다:\n\\[ \\hat{f}(x) = \\frac{1}{B} \\sum_{b=1}^{B} f_b(x) \\]\n여기서 $B$는 트리의 개수, $f_b(x)$는 $b$번째 트리의 예측값이다.",
+        "advantages": [
+          "과적합 감소: 다수의 독립적 트리를 통한 분산 감소",
+          "안정성: 이상치와 노이즈에 강건함",
+          "특성 중요도: 변수 중요도를 자동으로 계산",
+          "병렬화 용이: 각 트리를 독립적으로 학습 가능",
+          "비모수적 방법: 데이터 분포에 대한 가정 불필요"
+        ],
+        "disadvantages": [
+          "해석 복잡성: 개별 트리는 해석 가능하나 전체 모델은 블랙박스에 가까움",
+          "계산 비용: 많은 트리를 사용할 경우 학습 및 예측 시간 증가",
+          "메모리 사용량: 모든 트리를 저장해야 하므로 메모리 요구량 큼",
+          "극단적 값 예측 한계: 기존 값의 평균을 사용하므로 극단적 값 예측에 제한"
+        ],
+        "realEstateApplications": [
+          "부동산 가격 예측: 다양한 특성을 고려한 가격 모델링",
+          "투자 위험 평가: 부동산 투자의 위험 요소 분석",
+          "지역 분류: 유사한 특성을 가진 지역 그룹화",
+          "가치 평가 요인 식별: 부동산 가치에 영향을 미치는 주요 변수 파악"
+        ]
+      },
+      "codeExample": "import pandas as pd\nimport numpy as np\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, r2_score\n\n# 데이터 로드\ndata = pd.read_csv('real_estate_data.csv')\n\n# 특성과 타겟 분리\nX = data.drop('price', axis=1)\ny = data['price']\n\n# 학습/테스트 데이터 분할\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Random Forest 모델 생성 및 학습\nmodel = RandomForestRegressor(\n    n_estimators=100,\n    max_depth=None,\n    min_samples_split=2,\n    random_state=42\n)\nmodel.fit(X_train, y_train)\n\n# 예측 및 평가\ny_pred = model.predict(X_test)\nrmse = np.sqrt(mean_squared_error(y_test, y_pred))\nr2 = r2_score(y_test, y_pred)\n\nprint(f'RMSE: {rmse:.2f}')\nprint(f'R²: {r2:.4f}')\n\n# 변수 중요도 확인\nimportance = model.feature_importances_\nfeature_importance = pd.DataFrame({\n    'Feature': X.columns,\n    'Importance': importance\n}).sort_values('Importance', ascending=False)\n\nprint(feature_importance.head(10))",
+      "parameters": [
+        {
+          "name": "n_estimators",
+          "description": "트리의 개수",
+          "default": 100,
+          "range": [10, 500]
+        },
+        {
+          "name": "max_depth",
+          "description": "트리의 최대 깊이",
+          "default": "None",
+          "range": [3, 30]
+        },
+        {
+          "name": "min_samples_split",
+          "description": "내부 노드 분할에 필요한 최소 샘플 수",
+          "default": 2,
+          "range": [2, 20]
+        },
+        {
+          "name": "max_features",
+          "description": "각 분할에서 고려할 특성의 최대 수",
+          "default": "auto",
+          "options": ["auto", "sqrt", "log2"]
+        },
+        {
+          "name": "bootstrap",
+          "description": "부트스트랩 샘플 사용 여부",
+          "default": true,
+          "options": [true, false]
+        }
+      ],
+      "references": [
+        {
+          "title": "Random Forests",
+          "authors": "Leo Breiman",
+          "year": 2001,
+          "url": "https://link.springer.com/article/10.1023/A:1010933404324"
+        },
+        {
+          "title": "Random Forest를 활용한 부동산 가격 결정요인 분석",
+          "authors": "정OO, 한OO",
+          "year": 2021,
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "id": "svm",
+      "name": "Support Vector Machine",
+      "type": "분류/회귀",
+      "shortDescription": "데이터 포인트 간의 최적 경계를 찾아 분류 또는 회귀 문제를 해결하는 지도학습 알고리즘이다.",
+      "features": ["고차원 데이터", "커널 트릭", "마진 최적화"],
+      "fullDescription": {
+        "overview": "Support Vector Machine(SVM)은 Vladimir Vapnik에 의해 1990년대에 개발된 지도학습 알고리즘으로, 데이터 포인트 간의 최적 결정 경계(초평면)를 찾는 방식으로 작동한다. SVM은 '커널 트릭'을 통해 비선형 문제를 고차원 공간에서 선형 문제로 변환하여 해결할 수 있으며, 분류뿐만 아니라 회귀 문제(SVR)에도 적용 가능하다.",
+        "mathFormulation": "SVM의 기본 목적 함수는 다음과 같다:\n\\[ \\min_{w, b} \\frac{1}{2} ||w||^2 \\]\n\\[ \\text{subject to } y_i(w \\cdot x_i + b) \\geq 1, \\forall i \\]\n여기서 $w$는 초평면의 법선 벡터, $b$는 절편, $x_i$는 입력 데이터, $y_i$는 클래스 레이블이다. 비선형 문제의 경우 커널 함수 $K(x_i, x_j)$를 사용하여 내적을 대체한다.",
+        "advantages": [
+          "고차원 공간에서 효과적: 특성 수가 샘플 수보다 많은 경우에도 잘 작동",
+          "메모리 효율성: 결정 함수에 서포트 벡터만 사용",
+          "다양한 커널 함수: 다양한 비선형 문제에 적용 가능",
+          "이론적 보장: 최대 마진 분류기로서 일반화 성능에 대한 이론적 보장 존재"
+        ],
+        "disadvantages": [
+          "대규모 데이터셋에서 학습 시간 증가: 샘플 수가 많을 경우 계산 비용 증가",
+          "하이퍼파라미터 민감성: 커널, 정규화 매개변수 등의 선택에 민감",
+          "확률적 출력 부재: 기본 SVM은 확률값을 직접 제공하지 않음",
+          "특성 스케일링 필요: 특성 스케일에 민감하여 전처리 필요"
+        ],
+        "realEstateApplications": [
+          "부동산 가격 회귀 분석: SVR을 활용한 가격 예측",
+          "부동산 분류: 투자 적합성에 따른 부동산 분류",
+          "이상치 탐지: 비정상적인 가격 패턴 식별",
+          "특성 선택: 중요 특성 식별을 위한 SVM 기반 방법"
+        ]
+      },
+      "codeExample": "import pandas as pd\nimport numpy as np\nfrom sklearn.svm import SVR\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.model_selection import train_test_split, GridSearchCV\nfrom sklearn.metrics import mean_squared_error, r2_score\n\n# 데이터 로드\ndata = pd.read_csv('real_estate_data.csv')\n\n# 특성과 타겟 분리\nX = data.drop('price', axis=1)\ny = data['price']\n\n# 학습/테스트 데이터 분할\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# 특성 스케일링 (SVM에 중요)\nscaler = StandardScaler()\nX_train_scaled = scaler.fit_transform(X_train)\nX_test_scaled = scaler.transform(X_test)\n\n# SVR 모델 생성 및 하이퍼파라미터 튜닝\nparam_grid = {\n    'kernel': ['linear', 'rbf', 'poly'],\n    'C': [0.1, 1, 10, 100],\n    'gamma': ['scale', 'auto', 0.1, 0.01]\n}\n\nsvr = SVR()\ngrid_search = GridSearchCV(svr, param_grid, cv=5, scoring='neg_mean_squared_error', n_jobs=-1)\ngrid_search.fit(X_train_scaled, y_train)\n\n# 최적 모델 추출\nbest_svr = grid_search.best_estimator_\nprint(f'최적 파라미터: {grid_search.best_params_}')\n\n# 예측 및 평가\ny_pred = best_svr.predict(X_test_scaled)\nrmse = np.sqrt(mean_squared_error(y_test, y_pred))\nr2 = r2_score(y_test, y_pred)\n\nprint(f'RMSE: {rmse:.2f}')\nprint(f'R²: {r2:.4f}')",
+      "parameters": [
+        {
+          "name": "kernel",
+          "description": "커널 함수 유형",
+          "default": "rbf",
+          "options": ["linear", "poly", "rbf", "sigmoid"]
+        },
+        {
+          "name": "C",
+          "description": "정규화 매개변수",
+          "default": 1.0,
+          "range": [0.1, 100]
+        },
+        {
+          "name": "gamma",
+          "description": "커널 계수",
+          "default": "scale",
+          "options": ["scale", "auto"],
+          "range": [0.001, 1]
+        },
+        {
+          "name": "epsilon",
+          "description": "SVR의 입실론-불감 손실 함수의 입실론 값",
+          "default": 0.1,
+          "range": [0.01, 1]
+        },
+        {
+          "name": "degree",
+          "description": "다항 커널 함수의 차수",
+          "default": 3,
+          "range": [2, 5]
+        }
+      ],
+      "references": [
+        {
+          "title": "Support Vector Networks",
+          "authors": "Corinna Cortes, Vladimir Vapnik",
+          "year": 1995,
+          "url": "https://link.springer.com/article/10.1007/BF00994018"
+        },
+        {
+          "title": "SVM을 활용한 부동산 가격 예측 모델 연구",
+          "authors": "이OO, 김OO",
+          "year": 2020,
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "id": "knn",
+      "name": "k-Nearest Neighbors",
+      "type": "분류/회귀",
+      "shortDescription": "새로운 데이터 포인트의 예측값을 가장 가까운 k개 이웃 데이터의 값을 기반으로 결정하는 비모수적 방법이다.",
+      "features": ["단순함", "비모수적", "지역적 패턴"],
+      "fullDescription": {
+        "overview": "k-Nearest Neighbors(k-NN)는 가장 단순한 머신러닝 알고리즘 중 하나로, 새로운 데이터 포인트의 예측값을 가장 가까운 k개 이웃 데이터의 값을 기반으로 결정한다. 분류 문제에서는 다수결 투표, 회귀 문제에서는 평균값을 사용한다. k-NN은 모델 학습 과정이 없고 예측 시점에 계산이 이루어지는 '게으른 학습(lazy learning)' 방식을 사용한다.",
+        "mathFormula
+(Content truncated due to size limit. Use line ranges to read in chunks)

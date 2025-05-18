@@ -1,0 +1,279 @@
+/* 
+ * 부동산금융투자를 위한 머신러닝 모델 - 학술적 요소 스타일시트
+ * 작성일: 2025년 5월 18일
+ */
+
+/* ===== LaTeX 수식 스타일 ===== */
+.math-block {
+    background-color: var(--color-light-bg);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    margin: var(--space-md) 0;
+}
+
+.MathJax {
+    font-size: 1.1rem !important;
+}
+
+/* ===== 코드 하이라이팅 ===== */
+.language-python {
+    color: #ABB2BF;
+}
+
+.language-python .keyword {
+    color: #C678DD;
+}
+
+.language-python .string {
+    color: #98C379;
+}
+
+.language-python .number {
+    color: #D19A66;
+}
+
+.language-python .comment {
+    color: #5C6370;
+    font-style: italic;
+}
+
+.language-python .function {
+    color: #61AFEF;
+}
+
+/* ===== 학술적 표 스타일 ===== */
+.academic-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-md) 0;
+    font-size: 0.95rem;
+}
+
+.academic-table th {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    text-align: left;
+    padding: var(--space-sm);
+    font-weight: 500;
+}
+
+.academic-table td {
+    padding: var(--space-sm);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.academic-table tr:nth-child(even) {
+    background-color: var(--color-light-bg);
+}
+
+.academic-table caption {
+    caption-side: bottom;
+    text-align: left;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: var(--space-xs);
+}
+
+/* ===== 인용 스타일 ===== */
+blockquote {
+    border-left: 4px solid var(--color-primary);
+    padding: var(--space-md);
+    background-color: var(--color-light-bg);
+    margin: var(--space-md) 0;
+    font-style: italic;
+}
+
+blockquote cite {
+    display: block;
+    margin-top: var(--space-sm);
+    font-style: normal;
+    font-size: 0.9rem;
+}
+
+/* ===== 각주 스타일 ===== */
+.footnotes {
+    border-top: 1px solid var(--color-border);
+    margin-top: var(--space-xl);
+    padding-top: var(--space-md);
+    font-size: 0.9rem;
+}
+
+.footnote {
+    margin-bottom: var(--space-sm);
+}
+
+.footnote-ref {
+    font-size: 0.8rem;
+    vertical-align: super;
+    color: var(--color-primary);
+    margin-left: 2px;
+    text-decoration: none;
+}
+
+/* ===== 참고문헌 스타일 ===== */
+.reference-list {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.reference-item {
+    margin-bottom: var(--space-md);
+    padding-left: var(--space-lg);
+    text-indent: -var(--space-lg);
+}
+
+/* ===== 용어 강조 스타일 ===== */
+.term {
+    font-weight: 500;
+    color: var(--color-primary);
+    cursor: help;
+    border-bottom: 1px dotted var(--color-primary);
+}
+
+/* ===== 다이어그램 스타일 ===== */
+.diagram-container {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    margin: var(--space-md) 0;
+    text-align: center;
+}
+
+.diagram-caption {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: var(--space-sm);
+    text-align: center;
+}
+
+/* ===== 학술적 강조 박스 ===== */
+.academic-box {
+    background-color: var(--color-light-bg);
+    border-left: 4px solid var(--color-primary);
+    padding: var(--space-md);
+    margin: var(--space-md) 0;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.academic-box-title {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+    color: var(--color-primary);
+}
+
+/* ===== 정의 목록 스타일 ===== */
+dl {
+    margin: var(--space-md) 0;
+}
+
+dt {
+    font-weight: 700;
+    font-family: var(--font-serif);
+    color: var(--color-primary);
+    margin-bottom: var(--space-xs);
+}
+
+dd {
+    margin-left: var(--space-md);
+    margin-bottom: var(--space-sm);
+}
+
+/* ===== 학술적 알고리즘 박스 ===== */
+.algorithm-box {
+    background-color: var(--color-light-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    margin: var(--space-md) 0;
+    font-family: var(--font-mono);
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+.algorithm-title {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+    color: var(--color-primary);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-xs);
+}
+
+/* ===== 학술적 하이라이트 ===== */
+.highlight-primary {
+    background-color: rgba(26, 54, 93, 0.1);
+    padding: 0 3px;
+    border-radius: 3px;
+}
+
+.highlight-secondary {
+    background-color: rgba(200, 75, 49, 0.1);
+    padding: 0 3px;
+    border-radius: 3px;
+}
+
+/* ===== 학술적 차트 레이블 ===== */
+.chart-label {
+    font-family: var(--font-serif);
+    font-size: 0.9rem;
+    fill: var(--color-black);
+}
+
+.chart-title {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.1rem;
+    fill: var(--color-primary);
+}
+
+.chart-axis {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    fill: #666;
+}
+
+/* ===== 학술적 툴팁 ===== */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted var(--color-primary);
+    cursor: help;
+}
+
+.tooltip .tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    text-align: center;
+    border-radius: var(--radius-sm);
+    padding: var(--space-sm);
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+    font-size: 0.9rem;
+    font-weight: normal;
+}
+
+.tooltip .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--color-primary) transparent transparent transparent;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}

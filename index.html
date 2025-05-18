@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>부동산금융투자를 위한 머신러닝 모델</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/academic.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <!-- MathJax for LaTeX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <!-- 헤더 및 네비게이션 -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1>부동산금융투자를 위한 머신러닝 모델</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#intro" class="active">소개</a></li>
+                    <li><a href="#models">모델 개요</a></li>
+                    <li><a href="#cases">적용 사례</a></li>
+                    <li><a href="#practice">실습 모듈</a></li>
+                    <li><a href="#summary">요약 및 PDF</a></li>
+                    <li><a href="#references">참고자료</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-toggle" aria-label="메뉴 열기">
+                <span class="material-icons">menu</span>
+            </button>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="검색어를 입력하세요...">
+                <button id="search-button" aria-label="검색">
+                    <span class="material-icons">search</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 모바일 메뉴 -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <h2>메뉴</h2>
+            <button class="mobile-menu-close" aria-label="메뉴 닫기">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#intro">소개</a></li>
+                <li><a href="#models">모델 개요</a></li>
+                <li><a href="#cases">적용 사례</a></li>
+                <li><a href="#practice">실습 모듈</a></li>
+                <li><a href="#summary">요약 및 PDF</a></li>
+                <li><a href="#references">참고자료</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-submenu">
+            <h3>모델 바로가기</h3>
+            <ul>
+                <li><a href="#xgboost">XGBoost</a></li>
+                <li><a href="#lstm">LSTM</a></li>
+                <li><a href="#random-forest">Random Forest</a></li>
+                <li><a href="#svm">Support Vector Machine</a></li>
+                <li><a href="#knn">k-Nearest Neighbors</a></li>
+                <li><a href="#gbm">Gradient Boosting Machine</a></li>
+                <li><a href="#extra-trees">Extra Trees</a></li>
+                <li><a href="#generative-ai">Generative AI</a></li>
+                <li><a href="#gmdh">GMDH</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 사이드바 -->
+    <aside class="sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-section">
+                <h3>모델 바로가기</h3>
+                <ul>
+                    <li><a href="#xgboost">XGBoost</a></li>
+                    <li><a href="#lstm">LSTM</a></li>
+                    <li><a href="#random-forest">Random Forest</a></li>
+                    <li><a href="#svm">Support Vector Machine</a></li>
+                    <li><a href="#knn">k-Nearest Neighbors</a></li>
+                    <li><a href="#gbm">Gradient Boosting Machine</a></li>
+                    <li><a href="#extra-trees">Extra Trees</a></li>
+                    <li><a href="#generative-ai">Generative AI</a></li>
+                    <li><a href="#gmdh">GMDH</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>용어사전</h3>
+                <ul class="glossary-list">
+                    <li><a href="#glossary">머신러닝 기초 용어</a></li>
+                    <li><a href="#glossary">부동산금융 용어</a></li>
+                    <li><a href="#glossary">모델 평가 지표</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>빠른 링크</h3>
+                <ul>
+                    <li><a href="#faq">자주 묻는 질문</a></li>
+                    <li><a href="#contact">문의하기</a></li>
+                    <li><a href="#pdf-export" class="btn-secondary">PDF 내보내기</a></li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="main-content">
+        <!-- 소개 섹션 -->
+        <section id="intro" class="section">
+            <div class="container">
+                <h2>소개</h2>
+                <div class="intro-content">
+                    <div class="intro-text">
+                        <p>부동산금융투자 분야에서 머신러닝 기술의 활용은 데이터 기반 의사결정과 예측 모델링을 통해 투자 전략을 고도화하는 핵심 도구로 자리잡고 있다. 본 강의자료는 도시계획 및 부동산학 전공자로서 인공지능에 대한 비전공 배경을 가진 학부 고학년 및 대학원생들이 머신러닝 모델을 연구에 효과적으로 적용할 수 있도록 설계되었다.</p>
+                        
+                        <div class="info-box">
+                            <h3>학습 목표</h3>
+                            <ul>
+                                <li>다양한 머신러닝 모델의 구조와 작동 원리 이해</li>
+                                <li>부동산금융투자 분야에 적합한 모델 선택 기준 습득</li>
+                                <li>실제 데이터를 활용한 모델 적용 및 결과 해석 능력 배양</li>
+                                <li>연구 주제 발굴 및 방법론 설계 역량 강화</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="intro-diagram">
+                        <div class="svg-container">
+                            <!-- SVG 다이어그램 자리 -->
+                            <svg width="100%" height="300" class="intro-svg">
+                                <rect x="10%" y="10" width="80%" height="280" rx="8" fill="#f8f9fa" stroke="#e0e0e0" />
+                                <text x="50%" y="50" text-anchor="middle" font-family="'Noto Serif KR'" font-size="18" fill="#1A365D">부동산금융투자와 머신러닝의 융합</text>
+                                <!-- 추후 실제 SVG 다이어그램으로 대체 -->
+                            </svg>
+                        </div>
+                        <p class="caption">그림 1: 부동산금융투자 의사결정 과정에서 머신러닝 모델의 역할</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 모델 개요 섹션 -->
+        <section id="models" class="section">
+            <div class="container">
+                <h2>머신러닝 모델 개요</h2>
+                <p class="section-intro">부동산금융투자 연구에 활용 가능한 주요 머신러닝 모델들의 구조와 특징을 살펴본다. 각 모델의 수학적 기반, 장단점, 적용 가능 영역을 중심으로 설명한다.</p>
+                
+                <div class="model-grid">
+                    <!-- XGBoost 모델 카드 -->
+                    <div id="xgboost" class="model-card">
+                        <div class="model-header">
+                            <h3>XGBoost</h3>
+                            <span class="model-type">앙상블 학습</span>
+                        </div>
+                        <div class="model-content">
+                            <p>Extreme Gradient Boosting의 약자로, 그래디언트 부스팅 프레임워크의 최적화된 구현체이다. 높은 예측 성능과 계산 효율성을 특징으로 한다.</p>
+                            <div class="model-features">
+                                <span>고성능</span>
+                                <span>해석 가능</span>
+                                <span>이상치 강건</span>
+                            </div>
+                        </div>
+                        <button class="btn-detail" data-model="xgboost">자세히 보기</button>
+                    </div>
+
+                    <!-- LSTM 모델 카드 -->
+                    <div id="lstm" class="model-card">
+                        <div class="model-header">
+                            <h3>LSTM</h3>
+                            <span class="model-type">딥러닝</span>
+                        </div>
+                        <div class="model-content">
+                            <p>Long Short-Term Memory의 약자로, 시계열 데이터에서 장기 의존성을 학습할 수 있는 특수한 순환 신경망(RNN) 구조이다.</p>
+                            <div class="model-features">
+                                <span>시계열 분석</span>
+                                <span>장기 패턴</span>
+                                <span>비선형 관계</span>
+                            </div>
+                        </div>
+                        <button class="btn-detail" data-model="lstm">자세히 보기</button>
+                    </div>
+
+                    <!-- Random Forest 모델 카드 -->
+                    <div id="random-forest" class="model-card">
+                        <div class="model-header">
+                            <h3>Random Forest</h3>
+                            <span class="model-type">앙상블 학습</span>
+                        </div>
+                        <div class="model-content">
+                            <p>다수의 의사결정 트리를 구축하고 그 예측을 결합하여 과적합을 줄이고 정확도를 높이는 앙상블 학습 방법이다.</p>
+                            <div class="model-features">
+                                <span>안정성</span>
+                                <span>변수 중요도</span>
+                                <span>병렬 처리</span>
+                            </div>
+                        </div>
+                        <button class="btn-detail" data-model="random-forest">자세히 보기</button>
+                    </div>
+
+                    <!-- 추가 모델 카드들 (간략화) -->
+                    <div id="svm" class="model-card">
+                        <div class="model-header">
+                            <h3>Support Vector Machine</h3>
+                            <span class="model-type">분류/회귀</span>
+                        </div>
+                        <div class="model-content">
+                            <p>데이터 포인트 간의 최적 경계를 찾아 분류 또는 회귀 문제를 해결하는 지도학습 알고리즘이다.</p>
+                            <div class="model-features">
+                                <span>고차원 데이터</span>
+                                <span>커널 트릭</span>
+                                <span>마진 최적화</span>
+                            </div>
+                        </div>
+                        <button class="btn-detail" data-model="svm">자세히 보기</button>
+                    </div>
+
+                    <!-- 나머지 모델 카드들 -->
+                    <div id="knn" class="model-card">
+                        <div class="model-header">
+                            <h3>k-Nearest Neighbors</h3>
+                            <span class="model-type">분류/회귀</span>
+                        </div>
+                        <button class="btn-detail" data-model="knn">자세히 보기</button>
+                    </div>
+
+                    <div id="gbm" class="model-card">
+                        <div class="model-header">
+                            <h3>Gradient Boosting Machine</h3>
+                            <span class="model-type">앙상블 학습</span>
+                        </div>
+                        <button class="btn-detail" data-model="gbm">자세히 보기</button>
+                    </div>
+
+                    <div id="extra-trees" class="model-card">
+                        <div class="model-header">
+                            <h3>Extra Trees</h3>
+                            <span class="model-type">앙상블 학습</span>
+                        </div>
+                        <button class="btn-detail" data-model="extra-trees">자세히 보기</button>
+                    </div>
+
+                    <div id="generative-ai" class="model-card">
+                        <div class="model-header">
+                            <h3>Generative AI</h3>
+                            <span class="model-type">생성 모델</span>
+                        </div>
+                        <button class="btn-detail" data-model="generative-ai">자세히 보기</button>
+                    </div>
+
+                    <div id="gmdh" class="model-card">
+                        <div class="model-header">
+                            <h3>GMDH</h3>
+                            <span class="model-type">자기조직화</span>
+                        </div>
+                        <button class="btn-detail" data-model="gmdh">자세히 보기</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 모델 상세 모달 (XGBoost 예시) -->
+        <div id="model-detail-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-title">모델 상세 정보</h2>
+                    <button class="modal-close" aria-label="닫기">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- 모달 내용은 JavaScript로 동적 생성 -->
+                    <div id="modal-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 적용 사례 섹션 -->
+        <section id="cases" class="section">
+            <div class="container">
+                <h2>적용 사례</h2>
+                <p class="section-intro">부동산금융투자 분야에서 머신러닝 모델이 실제로 적용된 연구 및 산업 사례를 살펴본다. 각 사례의 문제 정의, 데이터 처리, 모델링 과정, 결과 해석 등을 단계별로 설명한다.</p>
+                
+                <div class="tabs">
+                    <div class="tab-header">
+                        <button class="tab-btn active" data-tab="case1">가격 예측</button>
+                        <button class="tab-btn" data-tab="case2">투자 위험 분석</button>
+                        <button class="tab-btn" data-tab="case3">시장 세분화</button>
+                        <button class="tab-btn" data-tab="case4">수요 예측</button>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <!-- 가격 예측 사례 -->
+                        <div id="case1" class="tab-pane active">
+                            <h3>XGBoost를 활용한 아파트 가격 예측 모델</h3>
+                            
+                            <div class="case-content">
+                                <div class="case-text">
+                                    <p>서울시 25개 구의 아파트 실거래가 데이터(2015-2022)를 활용하여 XGBoost 모델로 가격 예측 시스템을 구축한 사례이다. 물리적 특성(면적, 층수, 경과년수), 입지 특성(지하철역 거리, 학교 수), 거시경제 변수(금리, 주가지수) 등 30여 개 변수를 활용했다.</p>
+                                    
+                                    <div class="case-highlight">
+                                        <h4>핵심 성과</h4>
+                                        <ul>
+                                            <li>예측 정확도: RMSE 기준 선형회귀 대비 32% 향상</li>
+                                            <li>변수 중요도 분석을 통한 가격 결정 요인 식별</li>
+                                            <li>지역별 특성에 따른 맞춤형 예측 모델 구축</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="case-diagram">
+                                    <div class="svg-container">
+                                        <!-- SVG 다이어그램 자리 -->
+                                        <svg width="100%" height="300" class="case-svg">
+                                            <rect x="10%" y="10" width="80%" height="280" rx="8" fill="#f8f9fa" stroke="#e0e0e0" />
+                                            <text x="50%" y="50" text-anchor="middle" font-family="'Noto Serif KR'" font-size="18" fill="#1A365D">XGBoost 가격 예측 모델 플로우차트</text>
+                                            <!-- 추후 실제 SVG 다이어그램으로 대체 -->
+                                        </svg>
+                                    </div>
+                                    <p class="caption">그림 2: XGBoost 기반 아파트 가격 예측 모델의 데이터 흐름도</p>
+                                </div>
+                            </div>
+                            
+         
+(Content truncated due to size limit. Use line ranges to read in chunks)
